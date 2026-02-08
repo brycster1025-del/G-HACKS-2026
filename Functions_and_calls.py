@@ -70,8 +70,6 @@ def similarity_transform(offset, coord1_legacy, coord1_current, coord2_legacy, c
     bearing_12_current = np.arctan2(offset_12_current[1], offset_12_current[0])
     theta = -(bearing_12_legacy - bearing_12_current)
     scale = np.sqrt((offset_12_current[0]**2 + offset_12_current[1]**2) / (offset_12_legacy[0]**2 + offset_12_legacy[1]**2))
-    print(scale)
-    print(theta)
     rot = np.array([[np.cos(theta), -np.sin(theta)],
                    [np.sin(theta), np.cos(theta)]])
     return scale * rot @ offset
@@ -125,7 +123,6 @@ local_2_current = np.array([1063.8712, 170.0614])
 local_EF_legacy = np.array([-151.2606, 33.6304])
 height_change_EF = -3.6288
 local_EF = np.append(similarity_transform(local_EF_legacy, local_1_legacy, local_1_current, local_2_legacy, local_2_current), height_change_EF)
-print(local_EF)
 local_F = local_E + local_EF
 cartesian_AF = local_to_cartesian(geo_A, local_F)
 cartesian_F = cartesian_A + cartesian_AF
